@@ -40,6 +40,14 @@ add_action( 'init', function () {
 		'@font-face { font-family: "Trustpilot Sans"; src: url("' . esc_url( $font_url ) . '") format("woff2"); font-weight: 100 900; font-display: swap; }'
 	);
 
+	// Pass logo URL to editor JS
+	wp_add_inline_script( 'trb-editor',
+		'window.trbConfig = ' . wp_json_encode( array(
+			'logoUrl' => plugins_url( 'assets/trustpilot-logo.svg', __FILE__ ),
+		) ) . ';',
+		'before'
+	);
+
 	register_block_type( __DIR__ . '/block.json', array(
 		'editor_script'   => 'trb-editor',
 		'style'           => 'trb-style',
@@ -93,9 +101,8 @@ function trb_render_block( $attributes ) {
 					<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path fill="#00b67a" d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
 					Verified
 				</span>
-				<a class="trb-review__branding" href="https://www.trustpilot.com" target="_blank" rel="noopener noreferrer" aria-label="Read more reviews on Trustpilot">
-					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path fill="#00b67a" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-					<span class="trb-review__branding-text">Trustpilot</span>
+				<a class="trb-review__branding" href="https://www.trustpilot.com" target="_blank" rel="noopener noreferrer">
+					<img src="%8$s" alt="Trustpilot" height="20" style="display:block;" />
 				</a>
 			</div>
 
@@ -108,7 +115,8 @@ function trb_render_block( $attributes ) {
 		esc_html( $reviewer ),
 		$review_count ? '<span class="trb-review__review-count">' . esc_html( $review_count ) . '</span>' : '',
 		$country ? '<span class="trb-review__country">' . esc_html( $country ) . '</span>' : '',
-		$date    ? '<span class="trb-review__date">Date of experience: ' . esc_html( $date ) . '</span>' : ''
+		$date    ? '<span class="trb-review__date">Date of experience: ' . esc_html( $date ) . '</span>' : '',
+		esc_url( plugins_url( 'assets/trustpilot-logo.svg', __FILE__ ) )
 	);
 }
 
