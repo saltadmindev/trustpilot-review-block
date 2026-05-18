@@ -1,13 +1,12 @@
-@font-face {
-	font-family: "Trustpilot Sans";
-	src: url("fonts/Trustpilot-Sans.woff2") format("woff2");
-	font-weight: 100 900;
-	font-display: swap;
-}
+/* @font-face is injected by PHP with an absolute URL — see trustpilot-review-block.php */
 
 .trb-review,
-.trb-review * {
-	font-family: "Trustpilot Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+.trb-review h3,
+.trb-review p,
+.trb-review span,
+.trb-review a,
+.trb-review div {
+	font-family: "Trustpilot Sans", "Helvetica Neue", Helvetica, Arial, sans-serif !important;
 	box-sizing: border-box;
 }
 
@@ -20,7 +19,7 @@
 	color: #191919;
 }
 
-/* Stars — exact Trustpilot design: green/grey square + white star shape */
+/* Stars */
 .trb-review__stars {
 	display: flex;
 	gap: 2px;
@@ -30,24 +29,24 @@
 
 /* Title */
 .trb-review__title {
-	font-size: 20px;
-	font-weight: 700;
-	line-height: 1.3;
-	margin: 0 0 12px;
-	color: #191919;
+	font-size: 20px !important;
+	font-weight: 700 !important;
+	line-height: 1.3 !important;
+	margin: 0 0 12px !important;
+	color: #191919 !important;
 }
 .trb-review__title-link {
-	color: #191919;
-	text-decoration: none;
+	color: #191919 !important;
+	text-decoration: none !important;
 }
-.trb-review__title-link:hover { text-decoration: underline; }
+.trb-review__title-link:hover { text-decoration: underline !important; }
 
 /* Body */
 .trb-review__text {
-	font-size: 16px;
-	line-height: 1.7;
-	color: #191919;
-	margin: 0 0 20px;
+	font-size: 16px !important;
+	line-height: 1.7 !important;
+	color: #191919 !important;
+	margin: 0 0 20px !important;
 }
 
 /* Meta */
@@ -72,9 +71,9 @@
 	height: 40px;
 	border-radius: 50%;
 	background: #1a1a1a;
-	color: #fff;
-	font-size: 16px;
-	font-weight: 700;
+	color: #fff !important;
+	font-size: 16px !important;
+	font-weight: 700 !important;
 	flex-shrink: 0;
 }
 .trb-review__author-info {
@@ -83,14 +82,14 @@
 	gap: 2px;
 }
 .trb-review__author {
-	font-size: 15px;
-	font-weight: 700;
-	color: #191919;
+	font-size: 15px !important;
+	font-weight: 700 !important;
+	color: #191919 !important;
 	display: block;
 }
 .trb-review__review-count {
-	font-size: 13px;
-	color: #696969;
+	font-size: 13px !important;
+	color: #696969 !important;
 	display: block;
 }
 .trb-review__date-country {
@@ -102,8 +101,8 @@
 }
 .trb-review__country,
 .trb-review__date {
-	font-size: 13px;
-	color: #696969;
+	font-size: 13px !important;
+	color: #696969 !important;
 }
 
 /* Footer */
@@ -118,19 +117,19 @@
 	display: flex;
 	align-items: center;
 	gap: 4px;
-	font-size: 13px;
-	color: #696969;
+	font-size: 13px !important;
+	color: #696969 !important;
 }
 .trb-review__branding {
 	display: flex;
 	align-items: center;
 	gap: 5px;
-	text-decoration: none;
-	color: #191919;
+	text-decoration: none !important;
+	color: #191919 !important;
 }
-.trb-review__branding:hover .trb-review__branding-text { text-decoration: underline; }
+.trb-review__branding:hover .trb-review__branding-text { text-decoration: underline !important; }
 .trb-review__branding-text {
-	font-size: 14px;
-	font-weight: 700;
-	color: #191919;
+	font-size: 14px !important;
+	font-weight: 700 !important;
+	color: #191919 !important;
 }

@@ -34,6 +34,12 @@ add_action( 'init', function () {
 		'5.0.0'
 	);
 
+	// Output @font-face with absolute URL so it resolves correctly regardless of server config
+	$font_url = plugins_url( 'fonts/Trustpilot-Sans.woff2', __FILE__ );
+	wp_add_inline_style( 'trb-style',
+		'@font-face { font-family: "Trustpilot Sans"; src: url("' . esc_url( $font_url ) . '") format("woff2"); font-weight: 100 900; font-display: swap; }'
+	);
+
 	register_block_type( __DIR__ . '/block.json', array(
 		'editor_script'   => 'trb-editor',
 		'style'           => 'trb-style',
