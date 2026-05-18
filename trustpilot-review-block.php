@@ -102,7 +102,7 @@ function trb_render_block( $attributes ) {
 					Verified
 				</span>
 				<a class="trb-review__branding" href="https://www.trustpilot.com" target="_blank" rel="noopener noreferrer">
-					<img src="%8$s" alt="Trustpilot" height="20" style="display:block;" />
+					<img src="%10$s" alt="Trustpilot" height="20" style="display:block;" />
 				</a>
 			</div>
 
