@@ -1,0 +1,88 @@
+.trb-review {
+	border: 1px solid #e8e8e8;
+	border-radius: 6px;
+	padding: 24px;
+	background: #fff;
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+	max-width: 640px;
+}
+
+.trb-review__header {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	margin-bottom: 12px;
+}
+
+.trb-review__stars {
+	display: flex;
+	gap: 2px;
+}
+
+.trb-review__stars svg {
+	display: block;
+}
+
+.trb-review__date {
+	font-size: 13px;
+	color: #737373;
+}
+
+.trb-review__title {
+	font-size: 17px;
+	font-weight: 700;
+	margin: 0 0 10px;
+	line-height: 1.3;
+}
+
+.trb-review__title a {
+	color: #191919;
+	text-decoration: none;
+}
+
+.trb-review__title a:hover {
+	text-decoration: underline;
+}
+
+.trb-review__text {
+	font-size: 15px;
+	line-height: 1.65;
+	color: #3d3d3d;
+	margin: 0 0 20px;
+}
+
+.trb-review__footer {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding-top: 14px;
+	border-top: 1px solid #f0f0f0;
+}
+
+.trb-review__author {
+	font-size: 14px;
+	font-weight: 600;
+	color: #191919;
+}
+
+.trb-review__branding {
+	display: flex;
+	align-items: center;
+	gap: 5px;
+	text-decoration: none;
+	color: #191919;
+}
+
+.trb-review__branding:hover .trb-review__branding-text {
+	text-decoration: underline;
+}
+
+.trb-review__branding-text {
+	font-size: 13px;
+	font-weight: 600;
+	color: #191919;
+}
+
+.trb-review__logo {
+	display: block;
+}
