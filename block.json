@@ -9,7 +9,6 @@
 	"description": "Display a single hand-picked Trustpilot review using the official TrustBox widget.",
 	"keywords": [ "trustpilot", "review", "rating", "testimonial", "quote" ],
 	"textdomain": "trustpilot-review-block",
-	"editorScript": "file:./build/index.js",
 	"attributes": {
 		"reviewId": {
 			"type": "string",

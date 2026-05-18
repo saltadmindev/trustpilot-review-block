@@ -115,16 +115,21 @@ add_action( 'init', function () {
 		$asset_file['version']
 	);
 
-	// Pass plugin settings to the editor JS
-	wp_localize_script( 'trb-editor', 'trbConfig', [
-		'businessUnitId' => get_option( 'trb_business_unit_id', '' ),
-		'widgetToken'    => get_option( 'trb_widget_token', '' ),
-		'businessDomain' => get_option( 'trb_business_domain', '' ),
-		'locale'         => get_option( 'trb_locale', 'en-GB' ),
-		'templateId'     => get_option( 'trb_template_id', '54d0e1d8764ea9078c79e6ee' ),
-		'styleHeight'    => get_option( 'trb_style_height', '300px' ),
-		'settingsUrl'    => admin_url( 'options-general.php?page=trustpilot-review-block' ),
-	] );
+	// Inline the config before the script runs — more reliable than wp_localize_script
+	// when block.json also auto-registers the editor script with its own handle.
+	wp_add_inline_script(
+		'trb-editor',
+		'window.trbConfig = ' . wp_json_encode( [
+			'businessUnitId' => get_option( 'trb_business_unit_id', '' ),
+			'widgetToken'    => get_option( 'trb_widget_token', '' ),
+			'businessDomain' => get_option( 'trb_business_domain', '' ),
+			'locale'         => get_option( 'trb_locale', 'en-GB' ),
+			'templateId'     => get_option( 'trb_template_id', '54d0e1d8764ea9078c79e6ee' ),
+			'styleHeight'    => get_option( 'trb_style_height', '300px' ),
+			'settingsUrl'    => admin_url( 'options-general.php?page=trustpilot-review-block' ),
+		] ) . ';',
+		'before'
+	);
 
 	register_block_type( __DIR__ . '/block.json', [
 		'editor_script'   => 'trb-editor',
