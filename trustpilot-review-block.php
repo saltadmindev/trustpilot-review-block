@@ -143,13 +143,14 @@ add_action( 'init', function () {
 // ──────────────────────────────────────────────
 
 function trb_render_block( $attributes ) {
+	// Use ?: not ?? so empty strings fall back to saved settings
 	$review_id      = sanitize_text_field( $attributes['reviewId'] ?? '' );
-	$business_unit  = sanitize_text_field( $attributes['businessUnitId'] ?? get_option( 'trb_business_unit_id', '' ) );
-	$token          = sanitize_text_field( $attributes['widgetToken'] ?? get_option( 'trb_widget_token', '' ) );
-	$domain         = sanitize_text_field( $attributes['businessDomain'] ?? get_option( 'trb_business_domain', '' ) );
-	$locale         = sanitize_text_field( $attributes['locale'] ?? get_option( 'trb_locale', 'en-GB' ) );
-	$template_id    = sanitize_text_field( $attributes['templateId'] ?? get_option( 'trb_template_id', '54d0e1d8764ea9078c79e6ee' ) );
-	$height         = sanitize_text_field( $attributes['styleHeight'] ?? get_option( 'trb_style_height', '300px' ) );
+	$business_unit  = sanitize_text_field( $attributes['businessUnitId'] ?: get_option( 'trb_business_unit_id', '' ) );
+	$token          = sanitize_text_field( $attributes['widgetToken'] ?: get_option( 'trb_widget_token', '' ) );
+	$domain         = sanitize_text_field( $attributes['businessDomain'] ?: get_option( 'trb_business_domain', '' ) );
+	$locale         = sanitize_text_field( $attributes['locale'] ?: get_option( 'trb_locale', 'en-GB' ) );
+	$template_id    = sanitize_text_field( $attributes['templateId'] ?: get_option( 'trb_template_id', '54d0e1d8764ea9078c79e6ee' ) );
+	$height         = sanitize_text_field( $attributes['styleHeight'] ?: get_option( 'trb_style_height', '300px' ) );
 
 	if ( ! $review_id || ! $business_unit || ! $token ) {
 		return '';
