@@ -2,18 +2,22 @@
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3,
 	"name": "trb/trustpilot-review",
-	"version": "4.0.0",
+	"version": "5.0.0",
 	"title": "Trustpilot Review",
 	"category": "embed",
 	"icon": "star-filled",
-	"description": "Paste a Trustpilot review URL to display that specific review using the official TrustBox widget.",
+	"description": "Display a hand-picked Trustpilot review styled to match Trustpilot.",
 	"keywords": [ "trustpilot", "review", "rating", "testimonial" ],
 	"textdomain": "trustpilot-review-block",
 	"attributes": {
-		"reviewId": {
-			"type": "string",
-			"default": ""
-		}
+		"reviewer":     { "type": "string",  "default": "" },
+		"reviewCount":  { "type": "string",  "default": "" },
+		"country":      { "type": "string",  "default": "" },
+		"stars":        { "type": "integer", "default": 5 },
+		"date":         { "type": "string",  "default": "" },
+		"title":        { "type": "string",  "default": "" },
+		"text":         { "type": "string",  "default": "" },
+		"reviewUrl":    { "type": "string",  "default": "" }
 	},
 	"supports": {
 		"html": false,

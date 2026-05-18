@@ -1,68 +1,129 @@
 .trb-review {
-	border: 1px solid #e8e8e8;
-	border-radius: 6px;
-	padding: 24px;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 	background: #fff;
-	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+	border: 1px solid #e7e7e7;
+	border-radius: 8px;
+	padding: 24px;
 	max-width: 640px;
+	box-sizing: border-box;
+	color: #191919;
 }
 
-.trb-review__header {
-	display: flex;
-	align-items: center;
-	gap: 12px;
-	margin-bottom: 12px;
-}
-
+/* Stars */
 .trb-review__stars {
 	display: flex;
 	gap: 2px;
+	margin-bottom: 16px;
+}
+.trb-review__stars svg { display: block; }
+
+/* Title */
+.trb-review__title {
+	font-size: 20px;
+	font-weight: 700;
+	line-height: 1.3;
+	margin: 0 0 12px;
+	color: #191919;
+}
+.trb-review__title-link {
+	color: #191919;
+	text-decoration: none;
+}
+.trb-review__title-link:hover {
+	text-decoration: underline;
 }
 
-.trb-review__stars svg {
+/* Body text */
+.trb-review__text {
+	font-size: 16px;
+	line-height: 1.7;
+	color: #191919;
+	margin: 0 0 20px;
+}
+
+/* Author / meta row */
+.trb-review__meta {
+	display: flex;
+	align-items: flex-start;
+	justify-content: space-between;
+	gap: 12px;
+	margin-bottom: 16px;
+	flex-wrap: wrap;
+}
+
+.trb-review__author-block {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+}
+
+.trb-review__avatar {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	background: #1a1a1a;
+	color: #fff;
+	font-size: 16px;
+	font-weight: 700;
+	flex-shrink: 0;
+}
+
+.trb-review__author-info {
+	display: flex;
+	flex-direction: column;
+	gap: 2px;
+}
+
+.trb-review__author {
+	font-size: 15px;
+	font-weight: 700;
+	color: #191919;
 	display: block;
+}
+
+.trb-review__review-count {
+	font-size: 13px;
+	color: #696969;
+	display: block;
+}
+
+/* Date & country */
+.trb-review__date-country {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-end;
+	gap: 3px;
+	text-align: right;
+}
+
+.trb-review__country {
+	font-size: 13px;
+	color: #696969;
 }
 
 .trb-review__date {
 	font-size: 13px;
-	color: #737373;
+	color: #696969;
 }
 
-.trb-review__title {
-	font-size: 17px;
-	font-weight: 700;
-	margin: 0 0 10px;
-	line-height: 1.3;
-}
-
-.trb-review__title a {
-	color: #191919;
-	text-decoration: none;
-}
-
-.trb-review__title a:hover {
-	text-decoration: underline;
-}
-
-.trb-review__text {
-	font-size: 15px;
-	line-height: 1.65;
-	color: #3d3d3d;
-	margin: 0 0 20px;
-}
-
+/* Footer */
 .trb-review__footer {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	padding-top: 14px;
+	padding-top: 16px;
 	border-top: 1px solid #f0f0f0;
 }
 
-.trb-review__author {
-	font-size: 14px;
-	font-weight: 600;
-	color: #191919;
+.trb-review__verified {
+	display: flex;
+	align-items: center;
+	gap: 4px;
+	font-size: 13px;
+	color: #696969;
 }
 
 .trb-review__branding {
@@ -78,11 +139,7 @@
 }
 
 .trb-review__branding-text {
-	font-size: 13px;
-	font-weight: 600;
+	font-size: 14px;
+	font-weight: 700;
 	color: #191919;
-}
-
-.trb-review__logo {
-	display: block;
 }
