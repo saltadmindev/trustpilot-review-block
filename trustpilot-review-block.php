@@ -109,9 +109,11 @@ function trb_render_block( $attributes ) {
 function trb_stars_html( $filled ) {
 	$out = '';
 	for ( $i = 1; $i <= 5; $i++ ) {
-		$color = $i <= $filled ? '#00b67a' : '#dcdce6';
-		$out  .= '<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">'
-			. '<path fill="' . $color . '" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>'
+		$bg   = $i <= $filled ? '#00b67a' : '#dcdce6';
+		// Coloured square with white star cut out — matches Trustpilot's exact star design
+		$out .= '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">'
+			. '<rect width="24" height="24" fill="' . $bg . '"/>'
+			. '<path fill="#fff" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>'
 			. '</svg>';
 	}
 	return $out;
