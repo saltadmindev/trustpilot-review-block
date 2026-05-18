@@ -37,67 +37,87 @@ add_action( 'rest_api_init', function () {
 function trb_rest_fetch_review( WP_REST_Request $request ): WP_REST_Response|WP_Error {
 	$url = $request->get_param( 'url' );
 
-	$response = wp_remote_get( $url, [
-		'timeout'    => 15,
-		'user-agent' => 'Mozilla/5.0 (compatible; WordPress/' . get_bloginfo( 'version' ) . '; +' . get_bloginfo( 'url' ) . ')',
-		'headers'    => [ 'Accept-Language' => 'en-GB,en;q=0.9' ],
+	// Normalise subdomains (uk.trustpilot.com → www.trustpilot.com)
+	$fetch_url = preg_replace( '#^https?://[a-z]{2}\.trustpilot\.com/#', 'https://www.trustpilot.com/', $url );
+
+	$response = wp_remote_get( $fetch_url, [
+		'timeout'     => 20,
+		'redirection' => 5,
+		'user-agent'  => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
+		'headers'     => [
+			'Accept'          => 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+			'Accept-Language' => 'en-GB,en;q=0.9',
+			'Cache-Control'   => 'no-cache',
+		],
 	] );
 
 	if ( is_wp_error( $response ) ) {
-		return new WP_Error( 'fetch_failed', 'Could not reach Trustpilot.', [ 'status' => 502 ] );
+		return new WP_Error( 'fetch_failed', 'Could not reach Trustpilot: ' . $response->get_error_message(), [ 'status' => 502 ] );
 	}
 
 	$code = wp_remote_retrieve_response_code( $response );
 	if ( $code !== 200 ) {
-		return new WP_Error( 'bad_response', "Trustpilot returned HTTP $code.", [ 'status' => 502 ] );
+		return new WP_Error( 'bad_response', "Trustpilot returned HTTP {$code}. The review page may be protected — try the www.trustpilot.com URL.", [ 'status' => 502 ] );
 	}
 
 	$html = wp_remote_retrieve_body( $response );
 	$data = trb_parse_review_html( $html, $url );
 
 	if ( ! $data ) {
-		return new WP_Error( 'parse_failed', 'Could not read the review from that page. Make sure the URL is a single review page (trustpilot.com/reviews/…).', [ 'status' => 422 ] );
+		return new WP_Error( 'parse_failed', 'Found the page but could not read the review data. Make sure the URL points to a single review (trustpilot.com/reviews/…).', [ 'status' => 422 ] );
 	}
 
 	return rest_ensure_response( $data );
 }
 
 /**
- * Pull review data out of the page HTML.
- * Trustpilot embeds JSON-LD structured data on review pages.
+ * Pull review data from the page HTML.
+ * Tries JSON-LD structured data first, then Next.js __NEXT_DATA__ as fallback.
  */
 function trb_parse_review_html( string $html, string $url ): ?array {
-	// Find all JSON-LD blocks
+	// 1. JSON-LD
 	preg_match_all( '/<script[^>]+type=["\']application\/ld\+json["\'][^>]*>(.*?)<\/script>/si', $html, $matches );
 
 	foreach ( $matches[1] as $raw ) {
-		$json = json_decode( trim( $raw ), true );
-		if ( ! $json ) {
-			continue;
-		}
+		$json  = json_decode( trim( $raw ), true );
+		if ( ! $json ) continue;
 
-		// Handle @graph arrays
 		$nodes = isset( $json['@graph'] ) ? $json['@graph'] : [ $json ];
 
 		foreach ( $nodes as $node ) {
 			$type = $node['@type'] ?? '';
-
 			if ( $type === 'Review' || $type === 'UserReview' ) {
-				$rating = $node['reviewRating']['ratingValue']
-					?? $node['reviewRating']['ratingValue']
-					?? null;
-
+				$rating = $node['reviewRating']['ratingValue'] ?? null;
 				return [
 					'stars'     => $rating ? intval( $rating ) : 5,
 					'title'     => $node['name'] ?? $node['headline'] ?? '',
 					'text'      => $node['reviewBody'] ?? $node['description'] ?? '',
-					'reviewer'  => $node['author']['name'] ?? $node['author'] ?? '',
+					'reviewer'  => is_array( $node['author'] ) ? ( $node['author']['name'] ?? '' ) : ( $node['author'] ?? '' ),
 					'date'      => isset( $node['datePublished'] )
 						? date_i18n( get_option( 'date_format' ), strtotime( $node['datePublished'] ) )
 						: '',
 					'reviewUrl' => $url,
 				];
 			}
+		}
+	}
+
+	// 2. Next.js SSR data (__NEXT_DATA__)
+	if ( preg_match( '/<script id=["\']__NEXT_DATA__["\'][^>]*>(.*?)<\/script>/si', $html, $m ) ) {
+		$next = json_decode( trim( $m[1] ), true );
+		$review = $next['props']['pageProps']['review'] ?? null;
+
+		if ( $review ) {
+			$stars = $review['stars'] ?? $review['rating'] ?? 5;
+			$date  = $review['dates']['publishedDate'] ?? $review['createdAt'] ?? '';
+			return [
+				'stars'     => intval( $stars ),
+				'title'     => $review['title'] ?? '',
+				'text'      => $review['text'] ?? $review['body'] ?? '',
+				'reviewer'  => $review['consumer']['displayName'] ?? $review['author'] ?? '',
+				'date'      => $date ? date_i18n( get_option( 'date_format' ), strtotime( $date ) ) : '',
+				'reviewUrl' => $url,
+			];
 		}
 	}
 
