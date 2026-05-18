@@ -1,0 +1,47 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "trb/trustpilot-review",
+	"version": "1.0.0",
+	"title": "Trustpilot Review",
+	"category": "embed",
+	"icon": "star-filled",
+	"description": "Display a single hand-picked Trustpilot review using the official TrustBox widget.",
+	"keywords": [ "trustpilot", "review", "rating", "testimonial", "quote" ],
+	"textdomain": "trustpilot-review-block",
+	"editorScript": "file:./build/index.js",
+	"attributes": {
+		"reviewId": {
+			"type": "string",
+			"default": ""
+		},
+		"businessUnitId": {
+			"type": "string",
+			"default": ""
+		},
+		"widgetToken": {
+			"type": "string",
+			"default": ""
+		},
+		"businessDomain": {
+			"type": "string",
+			"default": ""
+		},
+		"locale": {
+			"type": "string",
+			"default": ""
+		},
+		"templateId": {
+			"type": "string",
+			"default": ""
+		},
+		"styleHeight": {
+			"type": "string",
+			"default": ""
+		}
+	},
+	"supports": {
+		"html": false,
+		"align": [ "wide", "full" ]
+	}
+}
