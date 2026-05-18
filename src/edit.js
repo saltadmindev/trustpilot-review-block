@@ -2,13 +2,15 @@ import { __ } from '@wordpress/i18n';
 import { useBlockProps, InspectorControls } from '@wordpress/block-editor';
 import { PanelBody, TextControl, TextareaControl, RangeControl } from '@wordpress/components';
 
+const TP_STAR = 'M48,64.7 L62.6,61 L68.7,79.8 L48,64.7 Z M81.6,40.4 L55.9,40.4 L48,16.2 L40.1,40.4 L14.4,40.4 L35.2,55.4 L27.3,79.6 L48.1,64.6 L60.9,55.4 L81.6,40.4 Z';
+
 function Stars( { count } ) {
 	return (
 		<div style={ { display: 'flex', gap: 2 } }>
 			{ [ 1, 2, 3, 4, 5 ].map( ( i ) => (
-				<svg key={ i } width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-					<rect width="24" height="24" fill={ i <= count ? '#00b67a' : '#dcdce6' } />
-					<path fill="#fff" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+				<svg key={ i } width="24" height="24" viewBox="0 0 96 96" xmlns="http://www.w3.org/2000/svg">
+					<rect width="96" height="96" fill={ i <= count ? '#00B67A' : '#dcdce6' } fillRule="nonzero" />
+					<path fill="#FFFFFF" fillRule="nonzero" d={ TP_STAR } />
 				</svg>
 			) ) }
 		</div>

@@ -107,13 +107,14 @@ function trb_render_block( $attributes ) {
 }
 
 function trb_stars_html( $filled ) {
+	// Exact paths extracted from Trustpilot's official brand SVG (96×96 viewBox per star)
+	$star_path = 'M48,64.7 L62.6,61 L68.7,79.8 L48,64.7 Z M81.6,40.4 L55.9,40.4 L48,16.2 L40.1,40.4 L14.4,40.4 L35.2,55.4 L27.3,79.6 L48.1,64.6 L60.9,55.4 L81.6,40.4 Z';
 	$out = '';
 	for ( $i = 1; $i <= 5; $i++ ) {
-		$bg   = $i <= $filled ? '#00b67a' : '#dcdce6';
-		// Coloured square with white star cut out — matches Trustpilot's exact star design
-		$out .= '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">'
-			. '<rect width="24" height="24" fill="' . $bg . '"/>'
-			. '<path fill="#fff" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>'
+		$bg   = $i <= $filled ? '#00B67A' : '#dcdce6';
+		$out .= '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 96 96" aria-hidden="true">'
+			. '<rect width="96" height="96" fill="' . $bg . '" fill-rule="nonzero"/>'
+			. '<path fill="#FFFFFF" fill-rule="nonzero" d="' . $star_path . '"/>'
 			. '</svg>';
 	}
 	return $out;

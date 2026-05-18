@@ -1,36 +1,35 @@
 @font-face {
 	font-family: "Trustpilot Sans";
-	src: url("https://cdn.trustpilot.net/brand-assets/5.3.0/fonts/Trustpilot-Sans.woff2") format("woff2");
-	font-weight: 400 700;
+	src: url("fonts/Trustpilot-Sans.woff2") format("woff2");
+	font-weight: 100 900;
 	font-display: swap;
 }
 
-.trb-review {
+.trb-review,
+.trb-review * {
 	font-family: "Trustpilot Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+	box-sizing: border-box;
+}
+
+.trb-review {
 	background: #fff;
 	border: 1px solid #e7e7e7;
 	border-radius: 8px;
 	padding: 24px;
 	max-width: 640px;
-	box-sizing: border-box;
 	color: #191919;
 }
 
-/* ── Stars ── */
+/* Stars — exact Trustpilot design: green/grey square + white star shape */
 .trb-review__stars {
 	display: flex;
 	gap: 2px;
 	margin-bottom: 16px;
 }
+.trb-review__stars svg { display: block; }
 
-/* Each star: coloured square with white star shape cut out */
-.trb-review__stars svg {
-	display: block;
-}
-
-/* ── Title ── */
+/* Title */
 .trb-review__title {
-	font-family: "Trustpilot Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 	font-size: 20px;
 	font-weight: 700;
 	line-height: 1.3;
@@ -43,16 +42,15 @@
 }
 .trb-review__title-link:hover { text-decoration: underline; }
 
-/* ── Body ── */
+/* Body */
 .trb-review__text {
-	font-family: "Trustpilot Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 	font-size: 16px;
 	line-height: 1.7;
 	color: #191919;
 	margin: 0 0 20px;
 }
 
-/* ── Meta row ── */
+/* Meta */
 .trb-review__meta {
 	display: flex;
 	align-items: flex-start;
@@ -61,13 +59,11 @@
 	margin-bottom: 16px;
 	flex-wrap: wrap;
 }
-
 .trb-review__author-block {
 	display: flex;
 	align-items: center;
 	gap: 10px;
 }
-
 .trb-review__avatar {
 	display: flex;
 	align-items: center;
@@ -77,34 +73,26 @@
 	border-radius: 50%;
 	background: #1a1a1a;
 	color: #fff;
-	font-family: "Trustpilot Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 	font-size: 16px;
 	font-weight: 700;
 	flex-shrink: 0;
 }
-
 .trb-review__author-info {
 	display: flex;
 	flex-direction: column;
 	gap: 2px;
 }
-
 .trb-review__author {
-	font-family: "Trustpilot Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 	font-size: 15px;
 	font-weight: 700;
 	color: #191919;
 	display: block;
 }
-
 .trb-review__review-count {
-	font-family: "Trustpilot Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 	font-size: 13px;
 	color: #696969;
 	display: block;
 }
-
-/* ── Date & country ── */
 .trb-review__date-country {
 	display: flex;
 	flex-direction: column;
@@ -112,15 +100,13 @@
 	gap: 3px;
 	text-align: right;
 }
-
 .trb-review__country,
 .trb-review__date {
-	font-family: "Trustpilot Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 	font-size: 13px;
 	color: #696969;
 }
 
-/* ── Footer ── */
+/* Footer */
 .trb-review__footer {
 	display: flex;
 	align-items: center;
@@ -128,16 +114,13 @@
 	padding-top: 16px;
 	border-top: 1px solid #f0f0f0;
 }
-
 .trb-review__verified {
 	display: flex;
 	align-items: center;
 	gap: 4px;
-	font-family: "Trustpilot Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 	font-size: 13px;
 	color: #696969;
 }
-
 .trb-review__branding {
 	display: flex;
 	align-items: center;
@@ -145,11 +128,8 @@
 	text-decoration: none;
 	color: #191919;
 }
-
 .trb-review__branding:hover .trb-review__branding-text { text-decoration: underline; }
-
 .trb-review__branding-text {
-	font-family: "Trustpilot Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 	font-size: 14px;
 	font-weight: 700;
 	color: #191919;
