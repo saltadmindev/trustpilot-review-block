@@ -69,55 +69,49 @@ function trb_render_block( $attributes ) {
 		return '';
 	}
 
-	$avatar    = $reviewer ? esc_html( mb_strtoupper( mb_substr( $reviewer, 0, 1 ) ) ) : '?';
+	$avatar     = $reviewer ? esc_html( mb_strtoupper( mb_substr( $reviewer, 0, 1 ) ) ) : '?';
 	$link_open  = $review_url ? '<a href="' . $review_url . '" target="_blank" rel="noopener noreferrer" class="trb-review__title-link">' : '';
 	$link_close = $review_url ? '</a>' : '';
+	$logo_url   = esc_url( plugins_url( 'assets/trustpilot-logo.svg', __FILE__ ) );
 
-	return sprintf(
-		'<div class="trb-review">
+	$html  = '<div class="trb-review">';
 
-			<div class="trb-review__stars" aria-label="%d out of 5 stars">%s</div>
+	$html .= '<div class="trb-review__stars" aria-label="' . $stars . ' out of 5 stars">' . trb_stars_html( $stars ) . '</div>';
 
-			%s
+	if ( $title ) {
+		$html .= '<h3 class="trb-review__title">' . $link_open . esc_html( $title ) . $link_close . '</h3>';
+	}
 
-			%s
+	if ( $text ) {
+		$html .= '<p class="trb-review__text">' . nl2br( esc_html( $text ) ) . '</p>';
+	}
 
-			<div class="trb-review__meta">
-				<div class="trb-review__author-block">
-					<span class="trb-review__avatar" aria-hidden="true">%s</span>
-					<div class="trb-review__author-info">
-						<span class="trb-review__author">%s</span>
-						%s
-					</div>
-				</div>
-				<div class="trb-review__date-country">
-					%s
-					%s
-				</div>
-			</div>
+	$html .= '<div class="trb-review__meta">';
+	$html .= '<div class="trb-review__author-block">';
+	$html .= '<span class="trb-review__avatar" aria-hidden="true">' . $avatar . '</span>';
+	$html .= '<div class="trb-review__author-info">';
+	$html .= '<span class="trb-review__author">' . esc_html( $reviewer ) . '</span>';
+	if ( $review_count ) {
+		$html .= '<span class="trb-review__review-count">' . esc_html( $review_count ) . '</span>';
+	}
+	$html .= '</div></div>';
+	$html .= '<div class="trb-review__date-country">';
+	if ( $country ) {
+		$html .= '<span class="trb-review__country">' . esc_html( $country ) . '</span>';
+	}
+	if ( $date ) {
+		$html .= '<span class="trb-review__date">Date of experience: ' . esc_html( $date ) . '</span>';
+	}
+	$html .= '</div></div>';
 
-			<div class="trb-review__footer">
-				<span class="trb-review__verified">
-					<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path fill="#00b67a" d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-					Verified
-				</span>
-				<a class="trb-review__branding" href="https://www.trustpilot.com" target="_blank" rel="noopener noreferrer">
-					<img src="%10$s" alt="Trustpilot" height="20" style="display:block;" />
-				</a>
-			</div>
+	$html .= '<div class="trb-review__footer">';
+	$html .= '<span class="trb-review__verified"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path fill="#00b67a" d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>Verified</span>';
+	$html .= '<a class="trb-review__branding" href="https://www.trustpilot.com" target="_blank" rel="noopener noreferrer"><img src="' . $logo_url . '" alt="Trustpilot" height="20" style="display:block;" /></a>';
+	$html .= '</div>';
 
-		</div>',
-		$stars,
-		trb_stars_html( $stars ),
-		$title ? '<h3 class="trb-review__title">' . $link_open . esc_html( $title ) . $link_close . '</h3>' : '',
-		$text  ? '<p class="trb-review__text">' . nl2br( esc_html( $text ) ) . '</p>' : '',
-		$avatar,
-		esc_html( $reviewer ),
-		$review_count ? '<span class="trb-review__review-count">' . esc_html( $review_count ) . '</span>' : '',
-		$country ? '<span class="trb-review__country">' . esc_html( $country ) . '</span>' : '',
-		$date    ? '<span class="trb-review__date">Date of experience: ' . esc_html( $date ) . '</span>' : '',
-		esc_url( plugins_url( 'assets/trustpilot-logo.svg', __FILE__ ) )
-	);
+	$html .= '</div>';
+
+	return $html;
 }
 
 function trb_stars_html( $filled ) {
